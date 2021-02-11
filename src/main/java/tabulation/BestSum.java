@@ -5,16 +5,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class HowSum {
+public class BestSum {
 
-    public static int[] howSum(int targetSum, int[] numbers) {
+    public static int[] bestSum(int targetSum, int[] numbers) {
         List<int[]> table = new ArrayList<>(Collections.nCopies(targetSum + 1, null));
         table.set(0, new int[0]);
         for (int i = 0; i <= targetSum; i++) {
             if (null != table.get(i)) {
                 for (int num : numbers) {
-                    if (i + num <= targetSum) {
-                        table.set(i + num, addElementToArray(table.get(i), num));
+                    int[] arrayToBeInserted = addElementToArray(table.get(i), num);
+                    if (i + num <= targetSum &&
+                            (null == table.get(i + num) || arrayToBeInserted.length < table.get(i + num).length)) {
+                            table.set(i + num, arrayToBeInserted);
                     }
                 }
             }
@@ -29,10 +31,7 @@ public class HowSum {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(howSum(5, new int[]{2, 1})));
+        System.out.println(Arrays.toString(bestSum(8, new int[]{1,2,3,5,8})));
 
     }
 }
-
-
-
