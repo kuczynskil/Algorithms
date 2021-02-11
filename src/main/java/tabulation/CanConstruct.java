@@ -9,8 +9,7 @@ public class CanConstruct {
         for (int i = 0; i < table.length; i++) {
             if (table[i]) {
                 for (String s : wordBank) {
-                    String analyzed = targetWord.substring(i);
-                    if (i + s.length() < table.length && analyzed.indexOf(s) == 0) {
+                    if (i + s.length() < table.length && targetWord.startsWith(s, i)) {
                         table[i + s.length()] = true;
                     }
                 }
@@ -18,7 +17,8 @@ public class CanConstruct {
         }
         return table[table.length - 1];
     }
+
     public static void main(String[] args) {
-        System.out.println(canConstruct("abc", new String[] {"a", "b"}));
+        System.out.println(canConstruct("abc", new String[]{"a", "bc"}));
     }
 }
