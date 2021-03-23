@@ -1,7 +1,7 @@
 package main.java.leetcode;
 
-import java.util.Arrays;
-import java.util.stream.IntStream;
+import java.util.HashSet;
+import java.util.Set;
 
 public class JewelsAndStones {
 
@@ -31,8 +31,12 @@ public class JewelsAndStones {
 
     public int numJewelsInStones(String jewels, String stones) {
         int sum = 0;
+        Set jewelsChars = new HashSet();
         for (char c : jewels.toCharArray()) {
-            sum += stones.chars().filter(ch -> ch == c).count();
+            jewelsChars.add(c);
+        }
+        for (char c : stones.toCharArray()) {
+            if (jewelsChars.contains(c)) sum++;
         }
         return sum;
     }
