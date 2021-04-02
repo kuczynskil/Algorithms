@@ -45,11 +45,16 @@ public class Dominator {
             }
         }
 
-        int maxOccurence =
-                Collections.max(numOccur.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getValue();
-        if (maxOccurence <= A.length / 2) return -1;
+        int maxOccurence = 0;
+        int dominator = 0;
+        for (Map.Entry<Integer, Integer> entry : numOccur.entrySet()) {
+            if (entry.getValue() > maxOccurence) {
+                maxOccurence = entry.getValue();
+                dominator = entry.getKey();
+            }
+        }
 
-        int dominator = Collections.max(numOccur.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+        if (maxOccurence <= A.length / 2) return -1;
         for (int i = 0; i < A.length; i++) {
             if (A[i] == dominator) return i;
         }
@@ -57,6 +62,6 @@ public class Dominator {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Dominator().solution(new int[]{3, 2, 2, 4, 3, 3, 3, -1}));
+        System.out.println(new Dominator().solution(new int[]{3, 1, 2, 4, 3, 3, 3, -1}));
     }
 }
